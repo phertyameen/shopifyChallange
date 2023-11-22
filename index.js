@@ -159,17 +159,31 @@ userCollectionChild.addEventListener('click', () => {
     }
 })
 
+
+
 const parentSvgs = document.querySelectorAll('.parentSvgs');
-console.log(parentSvgs)
+const progressCount = document.getElementById('progressCount');
+const progressBar = document.getElementById('progress');
 
 parentSvgs.forEach((parentSvg) => {
     const clickableSvg = parentSvg.firstElementChild;
 
-    const tickSvg = clickableSvg.nextElementSibling;
-    const tickSvg2 = tickSvg.nextElementSibling;
+    const borderTickSvg = clickableSvg.nextElementSibling;
+    const tickSvg = borderTickSvg.nextElementSibling;
 
-    clickableSvg.addEventListener('click', function () {
-        tickSvg2.style.display = 'block'
+    clickableSvg.addEventListener('click', () => {
+
+        // Increase progress by 20
+        progressBar.value += 20;
+
+        // Update progress count
+        const currentCount = parseInt(progressCount.innerText, 10);
+        const newCount = currentCount + 1;
+        progressCount.innerText = newCount;
+
+        borderTickSvg.style.display = 'none'
+        clickableSvg.style.display = 'none'
+        tickSvg.style.display = 'block'
     });
 });
 
