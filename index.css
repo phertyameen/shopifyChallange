@@ -1,0 +1,348 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --backgroundaplain: #F1F1F1;
+    --backgroundnava-300: #1C181D;
+    --backgroundnavg-200: #322F33;
+    --backgroundnavg-100: #616161;
+    --backgroundnavg-50: #656266;
+    --hover: #F7F7F7;
+    --pressed: #F0F0F0;
+    --focused: #005BD3;
+    --borderdark: #FFFFFF/20%;
+    --bordermed: #000000/7%;
+    --borderlight: #EBEBEB;
+    --darkfont: #475467;
+    --medfont: #616161;
+    --lightfont: #E3E3E3;
+}
+body{
+    background-color: var(--backgroundaplain);
+    font-family: Inter;
+    font-size: 13px;
+}
+button{
+    font-size: 12px;
+    font-weight: 600;
+}
+button:hover{
+    cursor: pointer;
+}
+.headerNav{
+    height: 10%;
+    background-color: var(--backgroundnava-300);
+    display: flex;
+    padding: 12px 16px;
+    justify-content: space-between;
+    align-items: center;
+}
+.searchDiv{
+    width: 33%;
+    position: relative;
+}
+#searchSvg{
+    position: absolute;
+    top: 0.4rem;
+    left: 0.3rem;
+    color: var(--backgroundnavg-100) !important;
+}
+.searchDiv #searchInp{
+    width: 100%;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    padding-left: 2rem;
+    background-color: var(--backgroundnavg-200);
+    font-weight: 500;
+    color: var(--backgroundnavg-100);
+    border: 1px solid var(--backgroundnavg-100);
+}
+.searchDiv #searchInp:hover{
+    border: 1px solid var(--borderlight);
+}
+
+.searchDiv #searchInp:focus{
+    border: 2px solid #fff;
+    outline: none;
+}
+.userCollection{
+    position: relative;
+    width: max-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 8px;
+}
+.userCollection:hover{
+    cursor: pointer;
+}
+.notificationAlert{
+    position: absolute;
+    right: 0;
+    padding: 1.3rem 1rem;
+    margin-right: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.05);
+    display: none;
+}
+.headerNotAlertDiv{
+    display: flex;
+    justify-content: space-between;
+}
+.notAlertP{
+    padding: 1rem;
+    background-color: var(--hover);
+}
+.userCollectionChild{
+    background-color: var(--backgroundnavg-200);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: space-between;
+    padding: 0.1rem 0.1rem 0.1rem 0.5rem;
+    border-radius: 8px;
+}
+.notificationSvg{
+    background-color: var(--backgroundnavg-50);
+    padding: 0.23rem;
+    border-radius: 0.5rem;
+}
+.userCollectionChild p{
+    color: var(--lightfont);
+}
+.userCollectionChild button{
+    color: var(--lightfont);
+    background-color: #000/40%;
+    background-color: #36FBA1;
+    padding: 9px 5px 10px 5px;
+    border-radius: 6px;
+}
+/* user dropdown menu */
+.userCollectionDropdown{
+    width: 25%;
+    position: absolute;
+    right: 0;
+    margin-right: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.05);
+    display: none;
+}
+.userCollectionDropdown a{
+    text-decoration: none;
+    color: var(--darkfont);
+}
+.userCollectionheader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem;
+    padding-inline: 0.5rem;
+    background-color: var(--hover);
+}
+.userCollectionDropdownDiv{
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+.userCollectionDropdownDiv button{
+    color: var(--lightfont);
+    background-color: #36FBA1;
+    padding: 9px 5px 10px 5px;
+    border-radius: 6px;
+    border: none;
+}
+.allStoresDiv a{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem;
+    color: var(--darkfont);
+    text-decoration: none;
+}
+.allStoresP, .allStoresFooter{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin: 1rem;
+    gap: 1rem;
+}
+.allStoresP p a, .allStoresFooter a{
+    text-decoration: none;
+    color: var(--darkfont);
+}
+/* main */
+main{
+    width: 55%;
+    margin-inline: auto;
+}
+/* main nav */
+.mainNav{
+    width: 100%;
+    height: max-content;
+    background-color: var(--backgroundnava-300);
+    font-size: 13px;
+    padding: 12px 8px 12px 16px;
+    border-radius: 8px;
+    color: var(var(--lightfont));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block: 2rem 1rem;
+}
+.mainNav p{
+    color: var(--lightfont);
+}
+.buttonDiv{
+    width: max-content;    
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+.buttonDiv button{
+    padding: 0.38rem 0.75rem;
+    color: var(--darkfont);
+    border: none;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: 0px -1px 0px 0px #B5B5B5 inset;
+    font-size: 12px;
+}
+.exit{
+    color: var(--lightfont);
+}
+/* setUpGuideSec */
+.setUpGuideSec{
+    background-color: #fff;
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+.setUpGuideSec h4{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--darkfont);
+}
+.progDiv{
+    font-size: 12px;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-block: 1rem;
+}
+/* check list divs */
+.dropDowmLists{
+    display: none;
+}
+.parentItem{
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+.checkList{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.checkList:hover{
+    cursor: pointer;
+}
+.parentSvgs{
+    display: flex;
+    position: relative;
+}
+.parentSvgs:hover{
+    .borderTickSvg{
+        display: block;
+        padding-top:0.5px;
+    }
+}
+.borderTickSvg, .tickSvg{
+    position: absolute;
+    display: none;
+}
+.infoCheckList{
+    padding-left: 2.3rem;
+    /* display: none; */
+}
+.descriptionImgDiv{
+    margin-top: -4rem;
+    margin-right: 0;
+    width: 22%;
+    float: right;
+}
+.descriptionImgDiv img{
+    width: 100%;
+}
+.infoCheckList p{
+    width: 75%;
+}
+.infoCheckList p a{
+    text-decoration: none;
+    color: var(--focused);
+}
+.infoCheckList button{
+    padding: 0.3rem 0.7rem;
+    border: 0.5px 0.5px 0 0.5px rgba(255, 255, 255, 0.20);
+    box-shadow: 0px 0px 0px 1.5px #333, 0px 1px 0px 1px #333, 0px 1px 0px 0px #000;
+    border-radius: 8px;
+    outline: none;
+    margin-top: 1rem;
+    background-color: #404040;
+    color: var(--lightfont);
+}
+#importBtn{
+    background-color: inherit;
+    color: var(--darkfont);
+    box-shadow: none;
+    border: none;
+}
+
+/* nav resonsiveness */
+@media screen and (max-width: 430px){
+    .searchDiv{
+        width: 40%;
+        position: relative;
+    }
+    .userCollectionChild{
+        background-color: inherit;
+        padding-left: 0;
+    }
+    .userCollectionChild p{
+        display: none;
+    }
+    .notificationSvg{
+        background-color: inherit;
+    }
+    .searchDiv #searchInp{
+        margin-left: 0.3rem;
+    }
+    #searchSvg{
+        left: 0.5rem;
+    }
+
+    main{
+        width: 100%;
+    }
+    .mainNav{
+        width: 100%;
+        border-radius: 0;
+        flex-direction: column;
+        align-items: start;
+        gap: 1.5rem;
+        padding-right: 1rem;
+    }
+    .buttonDiv{
+        position: relative;
+    }
+    .buttonDiv .exit{
+       position: absolute;
+       right: -16rem;
+       top: -2rem;
+    }
+    .userCollectionDropdown{
+        width: 65%;
+    }
+}
