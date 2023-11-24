@@ -10,30 +10,115 @@ function changeImageSource() {
     }
 }
 
-// Call the function on page load
 changeImageSource();
 
-// Attach the function to the window resize event
 window.addEventListener("resize", changeImageSource);
 
-// setup drop icon
-let dropUp = document.querySelector('#dropUp')
-let dropDowm = document.querySelector('#dropDowm')
-let dropDowmLists = document.querySelector('.dropDowmLists')
+// display notification alert popup
 
+const notificationSvg = document.querySelector('.notificationSvg')
+const notificationAlert = document.querySelector('.notificationAlert')
 
-dropUp.addEventListener('click', () => {
-    dropDowmLists.style.display = 'block'
-    dropUp.style.display = 'none'
-    dropDowm.style.display = 'block'
+function alertPopUp() {
+    notificationAlert.style.display = 'block';
+
+    notificationAlert.addEventListener('KeyUp', handleMenuEscapeKeypress)
+}
+
+function closeAlertPopUp() {
+    notificationAlert.style.display = 'none';
+}
+
+notificationSvg.addEventListener('click', () => {
+    if (notificationAlert.style.display === 'block') { closeAlertPopUp() } 
+    else { alertPopUp() }
 })
-dropDowm.addEventListener('click', () => {
-    dropDowmLists.style.display = 'none'
-    dropDowm.style.display = 'none'
-    dropUp.style.display = 'block'
-})
 
-// select plan button redirect
+
+// --------------------------------------------------------------------------------------------------------------
+// display userCollectionChild dropdown menu
+
+let userCollectionChild = document.querySelector('.userCollectionChild')
+
+// focus the first menuItem in userCollectionChild dropdown menu
+
+function toggleMenu() {
+    let userCollectionDropdown = document.querySelector('.userCollectionDropdown')
+
+    function closeMenu() {
+        userCollectionDropdown.style.display = 'none'
+        userCollectionDropdown.ariaExpanded = 'false'
+        // userCollectionChild.focus()
+    }
+
+    function handleMenuEscapeKeypress(e) {
+        if(e.key === 'Escape') {
+            closeMenu()
+            closeAlertPopUp()
+        }
+    }
+
+    function handleAllMenuArrowKeypress(e, menuItemIndex) {
+        console.log(e)
+        // getting first element
+        const fistMenuItem = menuItemIndex === 0
+
+        // getting last element
+        const lastMenuItem = menuItemIndex === allMenuItems.length - 1
+
+        // getting next menu item
+        const nextMenuItem = allMenuItems.item(menuItemIndex + 1)
+
+        // getting previous menu item
+        const previousMenuItem = allMenuItems.item(menuItemIndex - 1)
+
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown'){
+            if (lastMenuItem) {
+                allMenuItems.item(0).focus()
+
+                return;
+            }
+            nextMenuItem.focus()
+        }
+
+        if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+            if (fistMenuItem){
+                allMenuItems.item(allMenuItems.length - 1).focus()
+
+                return
+            }
+            previousMenuItem.focus()
+        }
+    }
+
+    function openMenu() {
+        userCollectionDropdown.style.display = 'block'
+        userCollectionDropdown.ariaExpanded = 'true'
+        allMenuItems.item(0).focus()
+
+        // function to handle escape event
+
+        userCollectionDropdown.addEventListener('keyup', handleMenuEscapeKeypress)
+    }
+
+    const allMenuItems = userCollectionDropdown.querySelectorAll('[role="menuitem"]')
+    console.log(allMenuItems)
+
+    allMenuItems.forEach(function(menuItem, menuItemIndex) {
+        menuItem.addEventListener('keyup', (e) => {
+            handleAllMenuArrowKeypress(e, menuItemIndex)
+        })
+    })
+
+
+    if (userCollectionDropdown.style.display === 'block') { closeMenu() } 
+    else { openMenu() }
+
+}
+userCollectionChild.addEventListener('click', toggleMenu)
+// ------------------------------------------------------------------------------------------------------------------------
+
+// 'select plan' button redirect
 const selectPlanBtn = document.querySelector('#selectPlanBtn')
 
 selectPlanBtn.addEventListener('click', (e)=>{
@@ -51,117 +136,30 @@ exit.addEventListener('click', () => {
     setUpGuideSec.style.marginTop = '5rem'
 })
 
+// setup drop icon in main
+let dropUp = document.querySelector('#dropUp')
+let dropDowm = document.querySelector('#dropDowm')
+let dropDowmLists = document.querySelector('.dropDowmLists')
+
+dropUp.addEventListener('click', () => {
+    const mainListItem = document.querySelector('.parentItem')
+
+    dropDowmLists.style.display = 'block'
+    dropUp.style.display = 'none'
+    dropDowm.style.display = 'block'
+
+    mainListItem.item(0).focus()
+
+})
+dropDowm.addEventListener('click', () => {
+    dropDowmLists.style.display = 'none'
+    dropDowm.style.display = 'none'
+    dropUp.style.display = 'block'
+})
 // checkList items toggle
-let checkLists = document.querySelectorAll('.checkList')
+// ------------------------------------------------------------------------------------------------------------
 
-checkLists.forEach( checkList => {
-    const infoCheckList = checkList.nextElementSibling;
-    const parentElement = checkList.parentElement
-
-    checkLists.forEach(otherCheckList => {
-        const otherInfoCheckList = otherCheckList.nextElementSibling;
-        if (otherInfoCheckList !== infoCheckList) {
-            otherInfoCheckList.style.display = 'none';
-        }
-    });
-
-    checkList.addEventListener('click', ()=>{
-        if (infoCheckList.style.display === 'block') {
-            infoCheckList.style.display = 'none';
-            parentElement.style.backgroundColor = 'inherit'
-        } else {
-            infoCheckList.style.display = 'block';
-            parentElement.style.backgroundColor = '#F3F3F3'
-        }
-    })
-})
-
-
-// let checkLists = document.querySelectorAll('.checkList');
-// console.log(checkLists);
-
-// let currentIndex = 0;
-
-// checkLists.forEach((checkList, index) => {
-//     const infoCheckList = checkList.nextElementSibling;
-//     const parentElement = checkList.parentElement;
-
-//     checkLists.forEach((otherCheckList, otherIndex) => {
-//         const otherInfoCheckList = otherCheckList.nextElementSibling;
-//         if (otherInfoCheckList !== infoCheckList) {
-//             otherInfoCheckList.style.display = 'none';
-//         }
-//     });
-
-//     checkList.addEventListener('click', () => {
-//         toggleVisibility();
-//     });
-
-//     // Keyboard navigation
-//     checkList.addEventListener('keydown', (event) => {
-//         if (event.key === 'Enter') {
-//             event.preventDefault();
-//             toggleVisibility();
-//         } else if (event.key === 'ArrowUp' && index > 0) {
-//             event.preventDefault();
-//             currentIndex = index - 1;
-//             focusItem();
-//         } else if (event.key === 'ArrowDown' && index < checkLists.length - 1) {
-//             event.preventDefault();
-//             currentIndex = index + 1;
-//             focusItem();
-//         }
-//     });
-// });
-
-// function toggleVisibility() {
-//     const infoCheckList = checkLists[currentIndex].nextElementSibling;
-//     const parentElement = checkLists[currentIndex].parentElement;
-
-//     if (infoCheckList.style.display === 'block') {
-//         infoCheckList.style.display = 'none';
-//         parentElement.style.backgroundColor = 'inherit';
-//     } else {
-//         infoCheckList.style.display = 'block';
-//         parentElement.style.backgroundColor = '#F3F3F3';
-//     }
-// }
-
-// function focusItem() {
-//     checkLists[currentIndex].focus();
-// }
-
-
-// display notification alert popup
-
-const notificationSvg = document.querySelector('.notificationSvg')
-const notificationAlert = document.querySelector('.notificationAlert')
-
-notificationSvg.addEventListener('click', () => {
-    if (notificationAlert.style.display === 'block') {
-        notificationAlert.style.display = 'none';
-    } else {
-        notificationAlert.style.display = 'block';
-    }
-})
-
-// display userCollectionChild dropdown menu
-
-let userCollectionChild = document.querySelector('.userCollectionChild')
-
-userCollectionChild.addEventListener('click', () => {
-    let userCollectionDropdown = document.querySelector('.userCollectionDropdown')
-
-    if (userCollectionDropdown.style.display === 'block') {
-        userCollectionDropdown.style.display = 'none'
-    } else {
-        userCollectionDropdown.style.display = 'block'
-    }
-})
-
-
-
-const parentSvgs = document.querySelectorAll('.parentSvgs');
+const parentSvgs = document.querySelectorAll('.parentSvgs'); // ---------------------------------
 const progressCount = document.getElementById('progressCount');
 const progressBar = document.getElementById('progress');
 
@@ -171,19 +169,72 @@ parentSvgs.forEach((parentSvg) => {
     const borderTickSvg = clickableSvg.nextElementSibling;
     const tickSvg = borderTickSvg.nextElementSibling;
 
-    clickableSvg.addEventListener('click', () => {
-
+    function incrementProgress() {
         // Increase progress by 20
         progressBar.value += 20;
-
+    
         // Update progress count
         const currentCount = parseInt(progressCount.innerText, 10);
         const newCount = currentCount + 1;
         progressCount.innerText = newCount;
-
+    
         borderTickSvg.style.display = 'none'
         clickableSvg.style.display = 'none'
         tickSvg.style.display = 'block'
-    });
-});
+    }
+    function decrementProgress() {
+        // Increase progress by 20
+        progressBar.value -= 20;
+    
+        // Update progress count
+        const currentCount = parseInt(progressCount.innerText, 10);
+        const newCount = currentCount - 1;
+        progressCount.innerText = newCount;
+    
+        borderTickSvg.style.display = 'none'
+        clickableSvg.style.display = 'block'
+        tickSvg.style.display = 'none'
+    }
 
+    function handleProgress() {
+
+        const istickSvg = tickSvg.style.display = 'block'
+        if ( istickSvg ) { incrementProgress() } 
+        else { decrementProgress() }
+    }
+
+    clickableSvg.addEventListener('click', handleProgress);
+    tickSvg.addEventListener('click', decrementProgress)
+}); // ----------------------------------------------------------
+
+let checkLists = document.querySelectorAll('.checkList')
+
+checkLists.forEach( checkList => {
+    const infoCheckList = checkList.nextElementSibling;
+    const parentElement = checkList.parentElement
+
+    checkList.addEventListener('click', ()=>{
+
+        checkLists.forEach(otherCheckList => {
+            const otherInfoCheckList = otherCheckList.nextElementSibling;
+
+            if (otherInfoCheckList !== infoCheckList) {
+                otherInfoCheckList.style.display = 'none';
+            }
+            
+        });
+        
+        if (infoCheckList.style.display === 'block') {
+            infoCheckList.style.display = 'none';
+            parentElement.style.backgroundColor = 'inherit'
+            
+        } else {
+            checkLists.forEach(otherCheckList => {
+                otherCheckList.parentElement.style.backgroundColor = 'inherit';
+            });
+            infoCheckList.style.display = 'block';
+            parentElement.style.backgroundColor = '#F3F3F3'
+        }
+    })
+})
+// ------------------------------------------------------------------------------------------------------------

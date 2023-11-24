@@ -107,6 +107,14 @@ button:hover{
     padding: 0.1rem 0.1rem 0.1rem 0.5rem;
     border-radius: 8px;
 }
+.userCollectionChild:active{
+    background-color: var(--backgroundnavg-50);
+}
+.userCollectionChild:focus-visible{
+    border: 2px solid #005BD3;
+    box-shadow: 0px 0px 0px 3px #005BD3, 0px 0px 0px 1px #000;
+    background-color: var(--backgroundnavg-50);
+}
 .userCollectionChild:hover{
     background-color: var(--medfont);
 }
@@ -182,12 +190,13 @@ button:hover{
     display: flex;
     flex-direction: column;
     justify-content: start;
-    margin: 1rem;
-    gap: 1rem;
+    margin: 0.5rem 1rem;
+}
+.allStoresP p, .allStoresFooter div, .allStoresFooter p{
+    padding: 0.5rem;
 }
 .allStoresP p:hover, .allStoresFooter div:hover, .allStoresFooter p:hover{
     background-color: var(--hover);
-    padding: 0.5rem 0.1rem;
     border-radius: 8px;
 }
 .allStoresP p:active, .allStoresFooter div:active, .allStoresFooter p:active{
@@ -292,6 +301,12 @@ main{
 .parentItem{
     padding: 0.5rem;
     border-radius: 8px;
+}
+.parentItem:focus{
+    background-color: #F3F3F3;
+}
+.parentItem:active{
+    background-color: #F3F3F3;
 }
 .checkList{
     display: flex;
@@ -400,3 +415,41 @@ main{
         width: 65%;
     }
 }
+
+
+
+
+/* function handleKeys(e) {
+    const keyCode = e.keyCode;
+
+    if (keyCode === 38) { // Arrow Up
+        focusPreviousItem();
+    } else if (keyCode === 40) { // Arrow Down
+        focusNextItem();
+    }
+    console.log(e)
+}
+function focusPreviousItem() {
+    // Get the currently focused item
+    const focusedItem = document.activeElement;
+
+    // Find the index of the focused item in the toDoItems NodeList
+    const index = Array.from(toDoItems).indexOf(focusedItem);
+
+    // Focus on the previous item if it exists
+    if (index > 0) {
+        toDoItems[index - 1].focus();
+    }
+}
+function focusNextItem() {
+    // Get the currently focused item
+    const focusedItem = document.activeElement;
+
+    // Find the index of the focused item in the toDoItems NodeList
+    const index = Array.from(toDoItems).indexOf(focusedItem);
+
+    // Focus on the next item if it exists
+    if (index < toDoItems.length - 1) {
+        toDoItems[index + 1].focus();
+    }
+} */
