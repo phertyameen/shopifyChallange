@@ -205,6 +205,20 @@ dropUp.addEventListener("click", () => {
     clickableSvg.addEventListener("click", handleProgress);
     tickSvg.addEventListener("click", decrementProgress);
 
+  // ------------------------------------------------------------------------------------------------------------
+
+  dropDowmLists.style.display = "block";
+  dropUp.style.display = "none";
+  dropDowm.style.display = "block";
+});
+
+// dropup icon 
+dropDowm.addEventListener("click", () => {
+  dropDowmLists.style.display = "none";
+  dropDowm.style.display = "none";
+  dropUp.style.display = "block";
+});
+
     // ------------------------------------------------------
 
     let checkLists = document.querySelectorAll(".checkList");
@@ -235,17 +249,3 @@ dropUp.addEventListener("click", () => {
       });
     });
   }); // ----------------------------------------------------------
-
-  // ------------------------------------------------------------------------------------------------------------
-
-  dropDowmLists.style.display = "block";
-  dropUp.style.display = "none";
-  dropDowm.style.display = "block";
-});
-
-// dropup icon 
-dropDowm.addEventListener("click", () => {
-  dropDowmLists.style.display = "none";
-  dropDowm.style.display = "none";
-  dropUp.style.display = "block";
-});
