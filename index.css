@@ -302,7 +302,7 @@ main{
     padding: 0.5rem;
     border-radius: 8px;
 }
-.parentItem:focus{
+.parentItem:focus-visible{
     background-color: #F3F3F3;
 }
 .parentItem:active{
@@ -386,10 +386,11 @@ main{
         z-index: 1;
     }
     .searchDiv #searchInp{
-        margin-left: 0.3rem;
+        margin-left: -2rem;
+        width: 55vw;
     }
     #searchSvg{
-        left: 0.5rem;
+        left: -1.6rem;
     }
 
     main{
@@ -415,41 +416,3 @@ main{
         width: 65%;
     }
 }
-
-
-
-
-/* function handleKeys(e) {
-    const keyCode = e.keyCode;
-
-    if (keyCode === 38) { // Arrow Up
-        focusPreviousItem();
-    } else if (keyCode === 40) { // Arrow Down
-        focusNextItem();
-    }
-    console.log(e)
-}
-function focusPreviousItem() {
-    // Get the currently focused item
-    const focusedItem = document.activeElement;
-
-    // Find the index of the focused item in the toDoItems NodeList
-    const index = Array.from(toDoItems).indexOf(focusedItem);
-
-    // Focus on the previous item if it exists
-    if (index > 0) {
-        toDoItems[index - 1].focus();
-    }
-}
-function focusNextItem() {
-    // Get the currently focused item
-    const focusedItem = document.activeElement;
-
-    // Find the index of the focused item in the toDoItems NodeList
-    const index = Array.from(toDoItems).indexOf(focusedItem);
-
-    // Focus on the next item if it exists
-    if (index < toDoItems.length - 1) {
-        toDoItems[index + 1].focus();
-    }
-} */

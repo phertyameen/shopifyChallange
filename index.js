@@ -210,6 +210,63 @@ dropUp.addEventListener("click", () => {
   dropDowmLists.style.display = "block";
   dropUp.style.display = "none";
   dropDowm.style.display = "block";
+
+
+  // keyboard events
+  // keybord evens for section element
+
+  const toDoItems = document.querySelectorAll('[role = "listitem"]')
+  console.log(toDoItems)
+
+  toDoItems.item(0).focus()
+
+  toDoItems.forEach(function(toDoItem, toDoItemIndex) {
+
+    // console.log(toDoItem)
+    toDoItem.addEventListener("keyup", (e) => {
+      handletoDoItemsKeypress(e, toDoItemIndex);
+    });
+  })
+
+  
+function handletoDoItemsKeypress(e, toDoItemIndex) {
+
+  console.log(e);
+    // getting first element
+    const firstTodoItem = toDoItemIndex === 0;
+
+    // getting last element
+    const lastTodoItem = toDoItemIndex === toDoItems.length - 1;
+
+    // getting next menu item
+    const nextTodoItem = toDoItems.item(toDoItemIndex + 1);
+
+    // getting previous menu item
+    const previousTodoItem = toDoItems.item(toDoItemIndex - 1);
+
+    function focusPreviousItem() {
+    if (firstTodoItem) {
+      toDoItems.item(toDoItems.length - 1).focus();
+  
+      return;
+    }
+    previousTodoItem.focus();
+  }
+  function focusNextItem() {
+    if (lastTodoItem) {
+      lastTodoItem.item(0).focus();
+  
+      return;
+    }
+    nextTodoItem.focus();
+  }
+
+    if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+        focusPreviousItem();
+    } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        focusNextItem();
+    }
+}
 });
 
 // dropup icon 
@@ -249,3 +306,5 @@ dropDowm.addEventListener("click", () => {
       });
     });
   }); // ----------------------------------------------------------
+
+  
