@@ -32,6 +32,8 @@ function alertPopUp() {
 
 function closeAlertPopUp() {
   notificationAlert.style.display = "none";
+
+  notificationSvg.blur();
 }
 
 notificationSvg.addEventListener("click", () => {
@@ -57,7 +59,9 @@ function toggleMenu() {
   function closeMenu() {
     userCollectionDropdown.style.display = "none";
     userCollectionDropdown.ariaExpanded = "false";
-    // userCollectionChild.focus()
+
+    userCollectionChild.setAttribute('tabindex', '0');
+    userCollectionChild.focus()
   }
 
   function handleMenuEscapeKeypress(e) {
@@ -103,6 +107,8 @@ function toggleMenu() {
   function openMenu() {
     userCollectionDropdown.style.display = "block";
     userCollectionDropdown.ariaExpanded = "true";
+
+    userCollectionChild.blur();
     allMenuItems.item(0).focus();
 
     // function to handle escape event
@@ -160,6 +166,9 @@ dropUp.addEventListener("click", () => {
   const progressCount = document.getElementById("progressCount");
   const progressBar = document.getElementById("progress");
 
+  const checkBoxStatus = document.querySelector('#checkBoxStatus')
+  console.log(checkBoxStatus)
+
   parentSvgs.forEach((parentSvg) => {
     const clickableSvg = parentSvg.firstElementChild;
 
@@ -175,9 +184,19 @@ dropUp.addEventListener("click", () => {
       const newCount = currentCount + 1;
       progressCount.innerText = newCount;
 
-      borderTickSvg.style.display = "none";
+      borderTickSvg.style.display = "block";
       clickableSvg.style.display = "none";
-      tickSvg.style.display = "block";
+      tickSvg.style.display = "none";
+
+      checkBoxStatus.ariaLabel = 'loading, please wait...'
+      setTimeout(() => {
+        tickSvg.style.display = "block";
+        borderTickSvg.style.display = "none";
+
+        clickableSvg.ariaLabel = clickableSvg.replace('checked', 'unchecked')
+      }, 2500)
+
+      checkBoxStatus.ariaLabel = 'loading complete, todo is successfully unchecked'
     }
     function decrementProgress() {
       // Increase progress by 20
@@ -188,9 +207,19 @@ dropUp.addEventListener("click", () => {
       const newCount = currentCount - 1;
       progressCount.innerText = newCount;
 
-      borderTickSvg.style.display = "none";
-      clickableSvg.style.display = "block";
+      borderTickSvg.style.display = "block";
+      clickableSvg.style.display = "none";
       tickSvg.style.display = "none";
+
+      checkBoxStatus.ariaLabel = 'loading, please wait...'
+
+      setTimeout(() => {
+        borderTickSvg.style.display = "none"
+        clickableSvg.style.display = 'block'
+        clickableSvg.ariaLabel = clickableSvg.replace('unchecked', 'checked')
+      }, 2000)
+
+      checkBoxStatus.ariaLabel = 'todo is successfully unchecked'
     }
 
     function handleProgress() {
@@ -210,63 +239,6 @@ dropUp.addEventListener("click", () => {
   dropDowmLists.style.display = "block";
   dropUp.style.display = "none";
   dropDowm.style.display = "block";
-
-
-  // keyboard events
-  // keybord evens for section element
-
-  const toDoItems = document.querySelectorAll('[role = "listitem"]')
-  console.log(toDoItems)
-
-  toDoItems.item(0).focus()
-
-  toDoItems.forEach(function(toDoItem, toDoItemIndex) {
-
-    // console.log(toDoItem)
-    toDoItem.addEventListener("keyup", (e) => {
-      handletoDoItemsKeypress(e, toDoItemIndex);
-    });
-  })
-
-  
-function handletoDoItemsKeypress(e, toDoItemIndex) {
-
-  console.log(e);
-    // getting first element
-    const firstTodoItem = toDoItemIndex === 0;
-
-    // getting last element
-    const lastTodoItem = toDoItemIndex === toDoItems.length - 1;
-
-    // getting next menu item
-    const nextTodoItem = toDoItems.item(toDoItemIndex + 1);
-
-    // getting previous menu item
-    const previousTodoItem = toDoItems.item(toDoItemIndex - 1);
-
-    function focusPreviousItem() {
-    if (firstTodoItem) {
-      toDoItems.item(toDoItems.length - 1).focus();
-  
-      return;
-    }
-    previousTodoItem.focus();
-  }
-  function focusNextItem() {
-    if (lastTodoItem) {
-      lastTodoItem.item(0).focus();
-  
-      return;
-    }
-    nextTodoItem.focus();
-  }
-
-    if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
-        focusPreviousItem();
-    } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-        focusNextItem();
-    }
-}
 });
 
 // dropup icon 
@@ -275,6 +247,77 @@ dropDowm.addEventListener("click", () => {
   dropDowm.style.display = "none";
   dropUp.style.display = "block";
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  dropUp.addEventListener('keydown', (event) => {
+    // Check if the space or tab key is pressed
+    if (event.key === ' ' || event.key === 'Tab') {
+        
+        event.preventDefault();
+  // keyboard events
+  // keybord evens for section element
+
+  const toDoItems = document.querySelectorAll('[role="listitem"]');
+  // console.log(toDoItems)
+  
+  // toDoItems.item(0).setAttribute('tabindex', '0');
+  
+  toDoItems.item(0).focus();
+  
+  toDoItems.forEach((toDoItem) => {
+    function handletoDoItemsKeypress(e) {
+      console.log(e);
+  
+      // Find the index of the current item
+      const currentIndex = Array.from(toDoItems).indexOf(toDoItem);
+  
+      // getting first element
+      const firstTodoItem = currentIndex === 0;
+      console.log(firstTodoItem);
+  
+      // getting last element
+      const lastTodoItem = currentIndex === toDoItems.length - 1;
+      // console.log(lastTodoItem)
+  
+      // getting next menu item
+      const nextTodoItem = toDoItems[currentIndex + 1];
+      // console.log(nextTodoItem)
+  
+      // getting previous menu item
+      const previousTodoItem = toDoItems[currentIndex - 1];
+      // console.log(previousTodoItem)
+  
+      function focusPreviousItem() {
+        if (firstTodoItem) {
+          toDoItems[toDoItems.length - 1].focus();
+          return;
+        }
+        previousTodoItem.focus();
+      }
+  
+      function focusNextItem() {
+        if (lastTodoItem) {
+          toDoItems[0].focus();
+          return;
+        }
+        nextTodoItem.focus();
+      }
+  
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        focusPreviousItem();
+      } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        focusNextItem();
+      }
+    }
+  
+    // console.log(toDoItem)
+    toDoItem.addEventListener('keyup', handletoDoItemsKeypress);
+  }); 
+    }
+});
+
+}) 
 
     // ------------------------------------------------------
 
