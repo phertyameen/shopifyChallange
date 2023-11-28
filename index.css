@@ -563,4 +563,10 @@ main{
     .userCollectionDropdown{
         width: 65%;
     }
+    .infoCheckList p{
+        width: 100%;
+    }
+    .descriptionImgDiv{
+        display: none;
+    }
 }
