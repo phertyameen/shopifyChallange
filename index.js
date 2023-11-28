@@ -25,12 +25,21 @@ const notificationSvg = document.querySelector(".notificationSvg");
 const notificationAlert = document.querySelector(".notificationAlert");
 
 function alertPopUp() {
+  notificationAlert.style.animation = "fadeIn 500ms ease";
   notificationAlert.style.display = "block";
 
-  notificationAlert.addEventListener("KeyUp", handleMenuEscapeKeypress);
+  function handleMenuEscapeKeypress(event) {
+    // Check if the pressed key is the "Escape" key (key code 27)
+    if (event.key === "Escape" || event.key === "Esc") {
+      closeAlertPopUp();
+    }
+  }
+
+  document.addEventListener("keyup", handleMenuEscapeKeypress);
 }
 
 function closeAlertPopUp() {
+  notificationAlert.style.animation = "fadeOut 500ms ease";
   notificationAlert.style.display = "none";
 
   notificationSvg.blur();
@@ -56,7 +65,8 @@ function toggleMenu() {
     ".userCollectionDropdown"
   );
 
-  function closeMenu() {
+  function closeMenu() {   
+    userCollectionDropdown.style.animation = "fadeOut 0.5s ease";
     userCollectionDropdown.style.display = "none";
     userCollectionDropdown.ariaExpanded = "false";
 
@@ -105,16 +115,27 @@ function toggleMenu() {
   }
 
   function openMenu() {
+    userCollectionDropdown.style.animation = "fadeIn 0.5s ease";
+
+    userCollectionDropdown.addEventListener('animationend', onAnimationEnd, { once: true });
+
     userCollectionDropdown.style.display = "block";
     userCollectionDropdown.ariaExpanded = "true";
-
-    userCollectionChild.blur();
-    allMenuItems.item(0).focus();
 
     // function to handle escape event
 
     userCollectionDropdown.addEventListener("keyup", handleMenuEscapeKeypress);
   }
+
+  function onAnimationEnd() {
+    // Remove the animation property after the animation ends
+    userCollectionDropdown.style.animation = "none";
+  
+    // After the animation ends, perform other operations
+    userCollectionChild.blur();
+    allMenuItems.item(0).focus();
+  }
+  
 
   const allMenuItems =
     userCollectionDropdown.querySelectorAll('[role="menuitem"]');
@@ -149,8 +170,7 @@ exit.addEventListener("click", () => {
   const mainNav = document.querySelector(".mainNav");
   const setUpGuideSec = document.querySelector(".setUpGuideSec");
 
-  mainNav.style.display = "none";
-  setUpGuideSec.style.marginTop = "5rem";
+  mainNav.classList.add("hidden");
 });
 
 // setup drop icon in main
@@ -236,6 +256,7 @@ dropUp.addEventListener("click", () => {
 
   // ------------------------------------------------------------------------------------------------------------
 
+  dropDowmLists.style.animation = "fadeIn 700ms ease";
   dropDowmLists.style.display = "block";
   dropUp.style.display = "none";
   dropDowm.style.display = "block";
@@ -243,6 +264,7 @@ dropUp.addEventListener("click", () => {
 
 // dropup icon 
 dropDowm.addEventListener("click", () => {
+  dropDowmLists.style.animation = "none";
   dropDowmLists.style.display = "none";
   dropDowm.style.display = "none";
   dropUp.style.display = "block";
@@ -332,17 +354,20 @@ document.addEventListener('DOMContentLoaded', () => {
           const otherInfoCheckList = otherCheckList.nextElementSibling;
 
           if (otherInfoCheckList !== infoCheckList) {
+            otherInfoCheckList.classList.remove("fadeIn");
             otherInfoCheckList.style.display = "none";
           }
         });
 
         if (infoCheckList.style.display === "block") {
+          infoCheckList.classList.remove("fadeIn");
           infoCheckList.style.display = "none";
           parentElement.style.backgroundColor = "inherit";
         } else {
           checkLists.forEach((otherCheckList) => {
             otherCheckList.parentElement.style.backgroundColor = "inherit";
           });
+          infoCheckList.classList.add("fadeIn");
           infoCheckList.style.display = "block";
           parentElement.style.backgroundColor = "#F3F3F3";
         }

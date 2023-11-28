@@ -41,6 +41,26 @@ body{
         opacity: 1;
     }
 }
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      display: none;
+    }
+    to {
+      opacity: 1;
+      display: block;
+    }
+  }
+@keyframes fadeOut {
+    from {
+      opacity: 1;
+      display: block;
+    }
+    to {
+      opacity: 0;
+      display: none;
+    }
+  }
 button{
     font-size: 12px;
     font-weight: 600;
@@ -79,6 +99,7 @@ header{
     font-weight: 500;
     color: var(--backgroundnavg-100);
     border: 1px solid var(--backgroundnavg-100);
+    transition: all 300ms ease-in;
 }
 .searchDiv #searchInp:hover{
     border: 1px solid var(--borderlight);
@@ -153,7 +174,6 @@ header{
     border-radius: 0.5rem;
     display: flex;
     align-items: center;
-
     transition: all 300ms ease-in;
 }
 .notificationSvg:hover{
@@ -270,7 +290,12 @@ main{
     justify-content: space-between;
     align-items: center;
     margin-block: 2rem 1rem;
+    transition: opacity 200ms ease-out;
 }
+.mainNav.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
 .mainNav p{
     color: var(--lightfont);
 }
@@ -285,9 +310,10 @@ main{
     color: var(--darkfont);
     border: none;
     border-radius: 6px;
-    background-color: #fff;
+    background-color: var(--White, #fff);
     box-shadow: 0px -1px 0px 0px #B5B5B5 inset;
     font-size: 12px;
+    transition: all 300ms ease-in;
 }
 #selectPlanBtn:hover{
     background: #F7F7F7;
@@ -298,7 +324,9 @@ main{
 }
 #selectPlanBtn:focus{
     background: var(--White, #FFF);
-    box-shadow: 0px 0px 0px 3px #005BD3, 0px 0px 0px 1px #FFF, 0px -1px 0px 0px #B5B5B5 inset;
+    outline: 2px solid var(--focused);
+    outline-offset: 1px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 91, 211, 0.2), 0px 0px 3px 0px rgba(255, 255, 255, 0.4), 0px 0px 1.5px 0px rgba(51, 51, 51, 0.3);
 }
 .exit{
     color: var(--lightfont);
@@ -319,6 +347,9 @@ main{
     padding: 4px;
     border-radius: 6px;
     transition: 200ms ease-in;
+}
+.dropDowmLists{
+    animation: fadeIn 0.5s ease; 
 }
 #dropUp:hover, #dropDowm:hover, #dropUp:focus, #dropDowm:focus{
     background-color: var(--pressed);
@@ -407,6 +438,9 @@ main{
     padding: 0.5rem 0.5rem 0.75rem 0.5rem;
     display: none;
 }
+.infoCheckList.fadeIn {
+    animation: fadeIn 700ms ease; /* Adjust the duration and timing function as needed */
+  }
 .descriptionImgDiv{
     margin-top: -4rem;
     margin-right: -1rem;
@@ -426,15 +460,36 @@ main{
     color: var(--focused);
 }
 .infoCheckList button{
-    padding: 0.3rem 0.7rem;
-    border: 0.5px 0.5px 0 0.5px rgba(255, 255, 255, 0.20);
-    box-shadow: 0px 0px 0px 1.5px #333, 0px 1px 0px 1px #333, 0px 1px 0px 0px #000;
-    border-radius: 8px;
+    padding: 6px 12px;
+    border-top: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.20));
+    border-right: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.20));
+    border-left: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.20));
+    box-shadow: 0px 0px 0px 1.5px #333, 0px 1px 0px 1.5px #333, 0px 2px 0px 0px #000;
+    border-radius: 6px;
     outline: none;
     margin-top: 1rem;
     background-color: #404040;
     color: var(--lightfont);
     margin-left: 1.5rem;
+    transition: all 200ms ease-in;
+}
+.infoCheckList button:hover{
+    background: #2A2A2A;
+    outline: 2px solid var(--backgroundnava-300);
+    outline-offset: 2px;
+}
+.infoCheckList button:active{
+    background: #2A2A2A;
+    outline: 2px solid var(--backgroundnavg-100);
+    outline-offset: 2px;
+    box-shadow: 0px 0px 0px 1.5px #333, 0px 1px 0px 1.5px #333, 0px 2px 0px 0px #000;
+}
+.infoCheckList button:focus{
+    border: 1.5px 1.5px 0 1.5px solid var(--lightfont, rgba(255, 255, 255, 0.20));;
+    outline: 2px solid var(--focused);
+    outline-offset: 2px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 91, 211, 0.5), 0px 0px 3px 0px rgba(255, 255, 255, 0.7), 0px 0px 1.5px 0px rgba(51, 51, 51, 0.3);
+
 }
 #importBtn{
     background-color: inherit;
@@ -442,7 +497,21 @@ main{
     box-shadow: none;
     border: none;
 }
-
+#importBtn{
+    background-color: inherit;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+#importBtn:hover{
+    background: #E7E7E7;
+}
+#importBtn:active{
+    background: #E0E0E0;
+}
+#importBtn:focus{
+    background: #FFF;
+    border: 2px solid #fff;
+}
 /* nav resonsiveness */
 @media screen and (max-width: 430px){
     .searchDiv{
